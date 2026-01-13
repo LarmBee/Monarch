@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h4 class="mb-3">Hello, {{ current_user.name }} 👋</h4>
+<p>HR Dashboard – Manage leave requests and staff leave info</p>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5>Total Requests</h5>
+                <h3>{{ total_requests }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5>Approved</h5>
+                <h3>{{ approved_requests }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5>Rejected</h5>
+                <h3>{{ rejected_requests }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5>Pending</h5>
+                <h3>{{ pending_requests }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+</div>
+</div>
+
+<h5>Quick Actions</h5>
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <a href="{{ url_for('hr_panel') }}" class="btn btn-primary w-100">Approve Pending Requests</a>
+    </div>
+    <div class="col-md-4 mb-3">
+    <a href="{{ url_for('hr_leave_overview') }}" class="btn btn-info w-100">
+        View Leave Overview
+    </a>
+    
+</div>
+    
+
+    <div class="col-md-4 mb-3">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-info w-100">Back to Staff Dashboard</a>
+    </div>
+    <div class="col-md-4 mb-3">
+        <a href="{{ url_for('hr_panel') }}" class="btn btn-secondary w-100">View Leave History</a>
+    </div>
+    <div class="col-md-4 mb-3">
+        <a href="{{ url_for('add_user') }}" class="btn btn-success w-100">
+    ➕ Add User
+        </a>
+    </div>
+    <div class="col-md-4 mb-3">
+        <a href="{{ url_for('hr_users') }}" class="btn btn-info w-100">See All Staff</a>
+    </div>
+</div>
+
+{% endblock %}

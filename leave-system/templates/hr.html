@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h4 class="mb-3">HR – Leave Requests</h4>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="{{ url_for('hr_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+
+<table class="table table-bordered bg-white">
+    <thead>
+        <tr>
+            <th>Staff</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for leave in leaves %}
+        <tr>
+            <td>{{leave.username}}</td>
+            <td>{{ leave.start_date }}</td>
+            <td>{{ leave.end_date }}</td>
+            <td>{{ leave.status }}</td>
+            <td>
+                {% if leave.status == 'Pending' %}
+                    <a href="{{ url_for('approve', id=leave.id) }}" class="btn btn-sm btn-success">Approve</a>
+                    <a href="{{ url_for('reject', id=leave.id) }}" class="btn btn-sm btn-danger">Reject</a>
+                {% else %}
+                    <span class="text-muted">{{leave.status}}</span>
+                {% endif %}   
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="5" class="text-center">No requests</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+{% endblock %}

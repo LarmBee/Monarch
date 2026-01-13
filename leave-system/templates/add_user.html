@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <h4 class="mb-4">Add New Staff</h4>
+
+    <form method="POST">
+        <div class="mb-3">
+            <label>Username</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Department</label>
+            <input type="text" name="department" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Role</label>
+            <select name="role" class="form-select">
+                <option value="staff">Staff</option>
+                <option value="manager">HR / Manager</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Temporary Password</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+
+        <button class="btn btn-primary">Create User</button>
+        <a href="{{ url_for('hr_dashboard') }}" class="btn btn-secondary">Back</a>
+    </form>
+</div>
+
+{% endblock %}

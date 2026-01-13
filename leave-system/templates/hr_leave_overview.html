@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4>HR – Leave Overview</h4>
+    <a href="{{ url_for('hr_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+<div class="alert alert-warning">
+    <strong>Warning:</strong>
+    <span class="badge bg-danger">Overlap</span>
+    indicates multiple staff from the same department are on leave during overlapping dates.
+</div>
+<!-- CURRENT LEAVE -->
+<h5 class="mb-3">Currently On Leave</h5>
+<table class="table table-bordered table-striped bg-white mb-5">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Department</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Days Taken</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for leave in current_leave %}
+        <tr>
+            <td>{{ leave.user.username }}{% if overlap_map[leave.id] %}
+                <span class="badge bg-danger ms-2">Overlap</span>
+                 {% endif %}
+            </td>
+            <td>{{ leave.user.department }}</td>
+            <td>{{ leave.start_date }}</td>
+            <td>{{ leave.end_date }}</td>
+            <td>{{ leave.days }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="5" class="text-center">No staff currently on leave</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- UPCOMING LEAVE -->
+<h5 class="mb-3">Upcoming Leave</h5>
+<table class="table table-bordered table-striped bg-white">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Department</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Days Taken</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for leave in upcoming_leave %}
+        <tr>
+            <td>
+            {{ leave.user.username }}
+            {% if overlap_map[leave.id] %}
+                <span class="badge bg-danger ms-2">Overlap</span>
+            {% endif %}
+            </td>
+            <td>{{ leave.user.department }}</td>
+            <td>{{ leave.start_date }}</td>
+            <td>{{ leave.end_date }}</td>
+            <td>{{ leave.days }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="5" class="text-center">No upcoming leave</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
